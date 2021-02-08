@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MovementAgent : MonoBehaviour
+{
+    [SerializeField]
+    private float m_Speed;
+    [SerializeField]
+    private Vector3 m_Target;
+
+    private const float TOLERANCE = 0.1f;
+    
+    // Start is called before the first frame update
+    
+
+    // Update is called once per frame
+    void Update()
+    {
+        float distance = (m_Target - transform.position).magnitude;
+        if (distance < TOLERANCE)
+        {
+            return;
+        }
+        
+        Vector3 dir = (m_Target - transform.position).normalized; // вычитаем текущее положение из Target
+        Vector3 delta = dir * (m_Speed * Time.deltaTime);
+        
+        transform.Translate(delta);
+    }
+}
